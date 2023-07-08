@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>All Tasks</title>
+</head>
+<body>
+
+<div th:each="someTask : ${tasks}">
+    <a th:href="@{/tm/{id}(id=${someTask.getId()})}" th:text="${someTask.getTaskName()}"> someTask </a>
+</div>
+
+<br>
+<a href="/tm/newTask">Create new task</a>
+<hr/>
+
+</body>
+</html>
