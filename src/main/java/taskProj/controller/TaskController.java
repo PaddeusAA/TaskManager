@@ -1,5 +1,4 @@
 package taskProj.controller;
-
 import org.springframework.web.bind.annotation.*;
 import taskProj.dao.TaskDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +28,6 @@ public class TaskController {
         model.addAttribute("tasks", taskDAO.showSomeTask(id));
         return "tm/showSomeTasks";
     }
-
-/*
-    @GetMapping("/newTask")
-    public String newTask(@ModelAttribute("task") Task task){
-        return "tm/newTask";
-    }
- */
 
     @GetMapping("/newTask")
     public String newTask(Model model){
@@ -67,4 +59,5 @@ public class TaskController {
         taskDAO.deleteTask(id);
         return "redirect:/tm";
     }
+
 }

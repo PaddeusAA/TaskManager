@@ -1,19 +1,6 @@
 package taskProj.dao;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.csv.CSVRecord;
-import org.springframework.web.bind.annotation.PostMapping;
 import taskProj.model.Task;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +16,6 @@ public class TaskDAO {
         tasks.add(new Task(++TASK_COUNT, "Test2", "Test Task2"));
         tasks.add(new Task(++TASK_COUNT, "Test3", "Test Task3"));
     }
-
-
 
     public List<Task> showAllTasks() {
         return tasks;
