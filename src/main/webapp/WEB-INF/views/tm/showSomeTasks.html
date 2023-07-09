@@ -9,8 +9,12 @@
 <p th:text="${tasks.getTaskName()}">VALUE</p>
 <p th:text="${tasks.getTaskText()}">VALUE</p>
 
+<br>
+<hr/>
 
-<a th:href="@{/tm/{id}/editSomeTask(id=${tasks.getId()})}">Edit!</a>
+<form th:action="@{/tm/{id}/editSomeTask(id=${tasks.getId()})}" target="_self">
+    <input type="submit" value="Edit">
+</form>
 
 <br>
 
