@@ -10,12 +10,14 @@
 
   <label for="taskName">Enter name: </label>
   <input type="text" th:field="*{taskName}" id="taskName"/>
+  <div style="color:red" th:if="${#fields.hasErrors('taskName')}" th:errors="taskName">Name error</div>
 
   <br/>
   <br/>
 
   <label for="taskText">Enter text: </label>
   <input type="text" th:field="*{taskText}" id="taskText"/>
+  <div style="color:red" th:if="${#fields.hasErrors('taskText')}" th:errors="taskText">Text error</div>
 
   <br/>
   <br/>

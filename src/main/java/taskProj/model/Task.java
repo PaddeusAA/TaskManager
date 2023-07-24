@@ -1,9 +1,18 @@
 package taskProj.model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
+
 public class Task {
 
+
     private int id;
+
+    @Max(value = 30 ,message = "Name should be between up to 30 characters")
+    @NotEmpty(message = "Name should not be empty")
     private String taskName;
+
+    @NotEmpty(message = "Text should not be empty")
     private String taskText;
 
     public Task(){}
