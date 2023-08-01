@@ -1,43 +1,43 @@
 package taskProj.dao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import taskProj.model.Task;
 import org.springframework.stereotype.Component;
-import java.util.ArrayList;
+
+
 import java.util.List;
 
 @Component
 public class TaskDAO {
-    private static int TASK_COUNT;
-    private List<Task> tasks;
+    private final JdbcTemplate jdbcTemplate;
 
-    {
-        tasks = new ArrayList<>();
-
-        tasks.add(new Task(++TASK_COUNT, "Test1", "Test Task1"));
-        tasks.add(new Task(++TASK_COUNT, "Test2", "Test Task2"));
-        tasks.add(new Task(++TASK_COUNT, "Test3", "Test Task3"));
+    @Autowired
+    public TaskDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<Task> showAllTasks() {
-        return tasks;
+        return jdbcTemplate.query("SELECT * FROM task", new BeanPropertyRowMapper<>(Task.class));
     }
 
     public Task showSomeTask(int id) {
-        return tasks.stream().filter(t -> t.getId() == id).findAny().orElse(null);
+        return jdbcTemplate.query("SELECT * FROM task WHERE id=?", new Object[]{id},
+                new BeanPropertyRowMapper<>(Task.class))
+                .stream().findAny().orElse(null);
     }
 
     public void createNewTask(Task task) {
-        task.setId(++TASK_COUNT);
-        tasks.add(task);
+        jdbcTemplate.update("INSERT INTO task(taskname, tasktext) VALUES (?, ?)",
+                task.getTaskName(), task.getTaskText());
     }
 
     public void updateTask(int id, Task updateTask) {
-        Task taskToBeUpdate = showSomeTask(id);
-
-        taskToBeUpdate.setTaskName(updateTask.getTaskName());
-        taskToBeUpdate.setTaskText(updateTask.getTaskText());
+        jdbcTemplate.update("UPDATE  task SET taskName=?, taskText=? WHERE id=? ",
+                updateTask.getTaskName(), updateTask.getTaskText(), id);
     }
 
     public void deleteTask(int id) {
-        tasks.removeIf(t -> t.getId() == id);
+        jdbcTemplate.update("DELETE FROM task WHERE id=?", id);
     }
 }
